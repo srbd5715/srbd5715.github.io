@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title of the document</title>
+    <style>
+    body{
+    margin: 0;
+    padding: 0;
+    }
+      .box div {
+        width: 20%;
+        display: inline-block;
+        padding: 15px;
+        text-align: center;
+        color: #000000;
+        font-family: arial, sans-serif;
+        top: 5vh;
+      }
+      .green {
+        background-color: green;
+        height: 100vh;
+        font-size: 5vw;
+      }
+      .blue {
+        background-color: skyblue;
+        height: 100svh;
+        font-size: 5vw;
+      }
+      .gray {
+        background-color: gray;
+        height: 100lvh;
+        font-size: 5vw;
+      }
+      .pink {
+        background-color: pink;
+         height: 100dvh;
+         font-size: 5vw;
+      }
+      #supported::after {
+	  content: "sv, lv, dv, vi, vb are not supported by your Browser!";
+	  background-color: rgb(255, 51, 51);
+
+	  display: block;
+	  margin: 5px 0;
+	  padding: 10px;
+	  border: 1px solid #ccc;
+	  width: 40vw;
+	  position: absolute;
+	  top: 40vh;
+	  left: 40vw;
+	  font-size: 5vw;
+	  font-weight: 700;
+	}
+     @supports(height: 100dvh) {
+     #supported::after {
+	    content: "Dynamic Viewport units are supported by your Browser!";
+	    background-color: rgb(128, 255, 0);
+
+	    display: block;
+	    margin: 5px 0;
+	    padding: 5px;
+	    border: 1px solid #ccc;
+	    position: absolute;
+	    top: 0dvh;
+	    font-size: 3vw;
+	    left: 0vw;
+	    width: 90vw;
+	  }
+     }
+    </style>
+  </head>
+  <body>
+     <div id="supported"/>
+    <div class="box">
+      <div class="green"><p><b>This is previous viewport vh</b></p></div>
+      <div class="blue"><p><b>smallest possible viewport svh</b></p></div>
+      <div class="gray"><p><b>largest possible viewport lvh</b></p></div>
+      <div class="pink"><p><b>This dynamic viewport dvh</b></p></div>
+    </div>
+  </body>
+</html>
