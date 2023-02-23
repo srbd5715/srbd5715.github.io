@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+function myFunction() {
+  let text1 = "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
+  let text2 = "food";
+  let text3 = "asdfghjklzxcvbnmqwertyuiop";
+  let result = text1.concat(text2);
+  for (let j = 0; j < 100; j++) {
+    result = result.concat(text1);
+  }
+  for (let i = 0; i < 1000000; i++) {
+    if(i%50 == 0){
+      console.log(result);	
+    }else{
+      console.log(text3);
+    }
+      
+  }
+}
+</script>
+</head>
+
+<body onload="myFunction()">
+<h1>Hello World!</h1>
+</body>
+
+</html>
