@@ -1,0 +1,48 @@
+<style>
+  table {
+    border: 3.75px solid black;
+    border-spacing:0px;
+  }
+  td {
+    border: 1px solid red;
+  }
+</style>
+<table>
+  <tbody>
+    <tr>
+      <td>A<br>A<br>A<br></td>
+    </tr>
+  </tbody>
+</table>
+<button type="button" id = "btn" style="height: 40px; width: 80px;">Click For Zoom!</button>
+<pre></pre>
+<script>
+  let zoom = 1.1;
+  document.addEventListener("keydown", ev => {
+    if (ev.code == 'Minus')
+      zoom -= 0.1;
+    else
+      zoom += 0.1;
+    document.querySelector("pre").innerText = "" + zoom;
+    document.body.style.zoom = zoom;
+  });
+  let clck = document.getElementById("btn");
+  let clickHandler = function() {
+  	zoom+=0.1;
+  	document.querySelector("pre").innerText = "" + zoom;
+    	document.body.style.zoom = zoom;
+  }
+  clck.addEventListener("click", clickHandler);
+  if ('ontouchstart' in window) {
+    menu.addEventListener("touchstart", function() {
+        var touchHndl = function() {
+            //call the clickHandler actually
+            clickHandler();
+            //remove the touchend haldler after perform
+            this.removeEventListener(touchHndl)
+        }
+        //attach a handler for touch end when you are in touchstart event
+        this.addEventListener(touchHndl);
+    });
+}
+</script>
