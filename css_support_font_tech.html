@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
+    </head>
+    <title> Demo Website to check font-tech() and font-format()</title>
+    <body>
+        <div class="palette" hidden>
+            <h1>Your browser supports font palettes 🎉</h1>
+          </div>
+          
+          <div class="notPalette" hidden>
+            <h1>Your browser doesn't support font palettes 😭</h1>
+          </div>
+
+          <div class="format" hidden>
+            <h1>Your browser supports collection 🎉</h1>
+          </div>
+
+          <div class="notFormat" hidden>
+            <h1>Your browser does not support collection 😭</h1>
+          </div>
+          
+          <style>
+          @supports font-tech(palettes) {
+            .palette {
+              display: block;
+              font-family:  "Sofia", sans-serif;
+              color:green
+            }
+          }
+          
+          @supports not font-tech(palettes) {
+            .notPalette {
+              display: block;
+              font-family: "Audiowide", sans-serif;
+              color:red;
+            }
+          }
+
+          @supports font-format(collection) {
+            .format {
+                display: block;
+                font-family:  "Sofia", sans-serif;
+                color:green
+            }
+           }
+
+            @supports not font-format(collection) {
+            .notFormat {
+                display: block;
+                font-family: "Audiowide", sans-serif;
+                color:red
+            }
+           }
+          </style>
+    </body>
+    <!-- https://www.matuzo.at/blog/2023/100daysof-day79/ -->
+</html>
