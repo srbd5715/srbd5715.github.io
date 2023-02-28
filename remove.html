@@ -36,7 +36,7 @@
             for (let j = 0; j < 10; j++) {
               const fileHandle = await directoryHandle.getFileHandle('file' + j + '.txt', {create: true});  
               if(j == 5) {
-                fileHandle.removeEntry();
+                directoryHandle.removeEntry(fileHandle);
                 continue;
               }         
               const writable = await fileHandle.createWritable();
