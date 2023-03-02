@@ -1,15 +1,26 @@
 <!DOCTYPE html>
 <html>
+  <style>
+    div {
+      width: 320px;
+      padding: 10px;
+      border: 1px solid gray;
+      margin: 10px;
+    }
+  </style>
 <body>
-
 <h1>The form target attribute</h1>
-<! When rel='noopener' is supported then window.opener.location will not work and malicious.html will not open
-  and When rel='noopener' is not supported then window.opener.location will  work and malicious.html will open >
-<form action="page.html" method="get" target="_blank" >
+  <form action="page.html" method="get" target="_blank" >
   <label for="fname">First name:</label>
   <input type="text" id="fname" name="fname"><br><br>
   <label for="lname">Last name:</label>
   <input type="text" id="lname" name="lname"><br><br>
   <input type="submit" value="Submit">
 </form>
+</body>
+<div>
+  <p> <b>After pressing submit</b> </p>  
+  <p>When <strong>rel='noopener' </strong> is supported then <strong>window.opener.location</strong> will not work and <b><i>malicious.html</i></b> will not open <br>
+    and When <strong>rel='noopener' </strong> is  not supported then <strong>window.opener.location</strong> will work and <b><i>malicious.html</i></b> will open </p>
+  </div>
 </html>
