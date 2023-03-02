@@ -1,13 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <style>
-    div {
-      width: 320px;
-      padding: 10px;
-      border: 1px solid gray;
-      margin: 10px;
-    }
-  </style>
 <body>
 <h1>The form target attribute</h1>
   <form action="page.html" method="get" target="_blank" >
@@ -18,9 +10,7 @@
   <input type="submit" value="Submit">
 </form>
 </body>
-<div>
   <p> <b>After pressing submit</b> </p>  
   <p>When <strong>rel='noopener' </strong> is supported then <strong>window.opener.location</strong> will not work and <b><i>malicious.html</i></b> will not open <br>
     and When <strong>rel='noopener' </strong> is  not supported then <strong>window.opener.location</strong> will work and <b><i>malicious.html</i></b> will open </p>
-  </div>
 </html>
