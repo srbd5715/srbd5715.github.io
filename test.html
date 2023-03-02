@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html>
 <body>
-
 <h1>The form target attribute</h1>
-
-<form action="page.html" method="get" target="_blank" rel='noopener' >
+  <form action="page.html" method="get" target="_blank" >
   <label for="fname">First name:</label>
   <input type="text" id="fname" name="fname"><br><br>
   <label for="lname">Last name:</label>
   <input type="text" id="lname" name="lname"><br><br>
   <input type="submit" value="Submit">
 </form>
+</body>
+  <p> <b>After pressing submit</b> </p>  
+  <p>When <strong>rel='noopener' </strong> is supported then <strong>window.opener.location</strong> will not work and <b><i>malicious.html</i></b> will not open <br>
+    and When <strong>rel='noopener' </strong> is  not supported then <strong>window.opener.location</strong> will work and <b><i>malicious.html</i></b> will open </p>
 </html>
