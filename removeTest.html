@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="https://glitch.com/favicon.ico" />
+
+    <title>FileSystemHandle.remove() demo</title>
+
+    <!-- Import the webpage's stylesheet -->
+    <!--link rel="stylesheet" href="/style.css" /-->
+
+    <!-- Import the webpage's javascript file -->
+    <!--script src="/script.js" defer></script-->
+  </head>
+  <body>
+    <h1>FileSystemHandle.remove() demo</h1>
+
+    <div>
+      <button class="save">Create Demo file</button>
+    </div>
+
+    <h2>Created files</h2>
+
+    <div>
+      <ul class="save-list"></ul>
+    </div>
+
+    <hr />
+
+    <!--footer>
+      <p>
+        Check out the
+        <a href="https://glitch.com/edit/#!/filesystemhandle-remove"
+          >source code</a
+        >.
+      </p>
+    </footer-->
+  </body>
+  <script>
+  
+const saveBtn = document.querySelector(".save");
+const saveList = document.querySelector(".save-list");
+
+// Array to store handles of created files in
+let savedFileRefs = [];
+
+
+// Write the provided text to the provided file handle
+async function writeFile(fileHandle, contents) {
+  // Create a FileSystemWritableFileStream to write to.
+  const writable = await fileHandle.createWritable();
+
+  // Write the contents of the file to the stream.
+  await writable.write(contents);
+
+  // Close the file and write the contents to disk.
+  await writable.close();
+}
+
+// Update the app and UI to contain details of a new file
+async function processNewFile(fileHandle) {
+  // Check whether the file the text was written to already exists on
+  // disk. If so, don't create a new entry in the app
+  for (const handle of savedFileRefs) {
+    if (handle.name === fileHandle.name) {
+      alert("1 New File Created");
+      return;
+    }
+  }
+
+  // Push the new file handle onto the array
+  savedFileRefs.push(fileHandle);
+
+  // Create a new list item with delete button in the UI
+  const listItem = document.createElement("li");
+  listItem.textContent = fileHandle.name;
+  const deleteBtn = document.createElement("button");
+  deleteBtn.textContent = "Delete";
+
+  // The button id is the file name, with the .txt part removed
+  const fileId = fileHandle.name.split(".")[0];
+  deleteBtn.id = fileId;
+  saveList.appendChild(listItem);
+  listItem.appendChild(deleteBtn);
+
+  // Add an event handler to the button so the file is deleted when pressed
+  deleteBtn.addEventListener("click", await deleteFile);
+}
+
+// Delete a file
+async function deleteFile(e) {
+  // Walk through each file handle in the array
+  for (const handle of savedFileRefs) {
+    // When we find a match between a stored handle and the button id
+    if (handle.name === e.target.id + ".txt") {
+      // Remove the file from the file system
+      await handle.remove();
+      // remove the file handle reference form the array
+      savedFileRefs = savedFileRefs.filter(
+        (handle) => handle.name !== e.target.id + ".txt"
+      );
+      // Delete the corresponding list item from the UI
+      e.target.parentElement.parentElement.removeChild(e.target.parentElement);
+    }
+  }
+}
+
+
+// Taking care of the browser-specific prefixes.
+window.requestFileSystem =
+  window.requestFileSystem || window.webkitRequestFileSystem;
+window.directoryEntry = window.directoryEntry || window.webkitDirectoryEntry;
+
+// …
+
+function onFs(fs) {
+  fs.root.getDirectory(
+    "Documents",
+    { create: true },
+    (directoryEntry) => {
+      //directoryEntry.isFile === false
+      //directoryEntry.isDirectory === true
+      //directoryEntry.name === 'Documents'
+      //directoryEntry.fullPath === '/Documents'
+    },
+    
+  );
+}
+
+// Opening a file system with temporary storage
+
+let clickHandler = async function() {
+    //console.log("touch worked");
+    window.requestFileSystem(window.TEMPORARY, 1024 * 1024 /*1MB*/, onFs);
+    const root = await navigator.storage.getDirectory();
+    // Create a new file handle.
+    const fileHandle1 = await root.getFileHandle("Untitled1.txt", {
+      create: true,
+    });
+    const fileHandle2 = await root.getFileHandle("Untitled2.txt", {
+      create: true,
+    });
+    // Create a new file handle
+    //const fileHandle = await getNewFileHandle();
+    // Write the textarea contents to it
+    await writeFile(fileHandle1, "");
+    // Update the app with the new file details
+    await processNewFile(fileHandle1);
+    await writeFile(fileHandle2, "");
+    // Update the app with the new file details
+    await processNewFile(fileHandle2);
+  
+}
+saveBtn.addEventListener("click", clickHandler);
+  if ('ontouchstart' in window) {
+    saveBtn.addEventListener("touchstart", function() {
+        var touchHndl = function() {
+            //call the clickHandler actually
+          console.log("touch worked");
+            window.requestFileSystem(window.TEMPORARY, 5 * 1024 * 1024, clickHandler);
+            //remove the touchend haldler after perform
+            this.removeEventListener(touchHndl)
+        }
+        //attach a handler for touch end when you are in touchstart event
+        this.addEventListener(touchHndl);
+    });
+  }
+saveBtn.addEventListener("click", async () => {
+  window.requestFileSystem(window.TEMPORARY, 5 * 1024 * 1024, clickHandler);
+});
+  </script>
+</html>
